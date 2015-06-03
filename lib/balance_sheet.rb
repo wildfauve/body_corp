@@ -34,7 +34,7 @@ class BalanceSheet
   end
   
   def month_seq
-    @mths ||= (@loss.collect {|line| line[:date]}.concat @profit.collect {|line| line[:date]}).uniq
+    @mths ||= (@loss.collect {|line| line.date}.concat @profit.collect {|line| line.date }).uniq    
   end
     
   # TODO: use a formatter pattern
@@ -50,8 +50,8 @@ class BalanceSheet
   def gen_line(title: nil, input: nil)
     line = [title]
     month_seq.each do |mth|
-      amt_date = input.find {|l| l[:date] == mth}
-      amt_date.empty? ? line << "" : line << amt_date[:amt].format
+      amt_date = input.find {|l| l.date == mth}
+      amt_date.nil? ? line << "" : line << amt_date.amt.format
     end
     line
   end

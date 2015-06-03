@@ -25,7 +25,7 @@ class Income
     start_year = date.year
     @forecast = []
     while date < end_date
-      @forecast << {date: date, amt: total_month_fees(apply_cpi: !@cpi.nil?, this_yr: date.year, start_yr: start_year)}
+      @forecast << PLEntry.new(date: date, amt: total_month_fees(apply_cpi: !@cpi.nil?, this_yr: date.year, start_yr: start_year))
       date = date.next_month
     end
     @forecast 
